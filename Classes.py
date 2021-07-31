@@ -25,9 +25,15 @@ class Factory:
         self.product = product
         self.resources = resouces
 
+class Work:
+    """citizen work"""
+    def __init__(self, factory:Factory, salary:int ):
+            self.factory = factory
+            self.salary = salary
+
 class Citizen:
     """Lives in cities"""
-    def __init__(self, wealth:int, work:Factory):
+    def __init__(self, wealth:int, work:Work):
         self.wealth = wealth
         self.work = work
 
