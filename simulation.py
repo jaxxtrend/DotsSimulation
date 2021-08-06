@@ -16,16 +16,13 @@ def main():
 
     # generate city
     cityName = "Moscow"
-    world.create_entity(cityName)
-    world.add_component(cityName, City(citizens=10000, budget=100000))
-
+    world.create_entity(City(citizens=5, budget=100000))
+    
     # generate citizens
     i = 0
-    while i < 10000:
-        name = "citizen" + str(i)
-        world.create_entity(name)
-        world.add_component(name,
-                            Citizen(age=random.randint(0, 30),
+    while i < 5:
+        #name = "E_citizen" + str(i)
+        world.create_entity(Citizen(age=random.randint(0, 30),
                                     money=random.randint(0, 1000)))
         i += 1
 
@@ -36,7 +33,7 @@ def main():
             world.process()
             time.sleep(0.1)
             i += 1
-            # print(world.process)
+            print(len(world._entities))
 
     except KeyboardInterrupt:
         return
