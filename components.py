@@ -1,37 +1,51 @@
 import esper
 from dataclasses import dataclass as component
 
-@component
-class Product:
-    def __init__(self, name: str = "", price: int = 1):
-        self.name = name
-        self.price = price
-
 
 @component
 class Work:
-    def __init__(self, factory: str = "", salary: int = 10):
-        self.factory = factory
-        self.salary = salary
-
+    factory: str = "Basic"
+    salary: int = 10
 
 @component
 class Citizen:
-    def __init__(self, age=0, money=0, salary=0):
-        self.age: int = age
-        self.money: int = money
-        self.salary: int = salary
-
-
-@component
-class City:
-    def __init__(self, citizens=1000, budget=1000, taxRate=20):
-        self.citizens: int = citizens
-        self.budget: int = budget
-        self.taxRate: int = taxRate
-
+    age: int = 0
+    money: int = 0
+    salary: int = 0
+    workId: int = None  #factory id
 
 @component
 class Factory:
-    def __init__(self, employers=100, products=Product):
-        pass
+    city: str = "Moscow"
+    factoryId: int = None
+    productName: str = "Generic"
+    productPrice: int = 0
+    employs: int = 0
+    employSalary: int = 0
+    money: int = 0
+    resources: int = 0
+
+@component
+class Product:
+    name: str = ""
+    price:int = 0
+
+@component
+class City:
+    citizens: int = 1000
+    budget: int = 1000
+    taxRate: int = 20
+    factories = []
+
+
+# city = City()
+# factory = Factory()
+# factory.employSalary = 28
+# factory.factoryId = 1
+# city.factories.append(factory)
+# citizen = Citizen()
+# factory = city.factories[0]
+# citizen.salary = factory.employSalary
+# citizen.workId = factory.factoryId
+
+# print(citizen)
