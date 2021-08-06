@@ -11,9 +11,7 @@ class LifeProcessor(esper.Processor):
             if citizen.age < 100:
                 citizen.age += 1
             else:
-                pass
-                # self.world.delete_entity(Citizen)
-
+                self.world.delete_entity(ent)
 
 class WorkProcessor(esper.Processor):
     def __init__(self):
@@ -40,12 +38,6 @@ class WorkProcessor(esper.Processor):
             city.budget -= citizen.salary
         #FAKE product price includes salaries by 50% of full price if sell this budget get profit.
         city.budget += (averageSalary * 2)
-        # average salaries
-        averageSalary = int(averageSalary/city.citizens)
-        
-        print("salary = " + str(averageSalary))
-            #print(ent, citizen.age, citizen.money, citizen.salary)
-
 
 class TaxProcessor(esper.Processor):
     def __init__(self) -> None:
@@ -57,8 +49,6 @@ class TaxProcessor(esper.Processor):
         for ent, (citizen) in self.world.get_component(Citizen):
             citizen.money = int(citizen.money - citizen.salary * (tax / 100))
             city.budget += (citizen.salary * (tax / 100))
-        print(int(city.budget))
-
 
 class MigrationProcessor(esper.Processor):
     def __init__(self) -> None:
