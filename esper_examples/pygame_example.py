@@ -82,10 +82,10 @@ def run():
     world = esper.World()
     player = world.create_entity()
     world.add_component(player, Velocity(x=0, y=0))
-    world.add_component(player, Renderable(image=pygame.image.load("EsperExamples\\redsquare.png"), posx=100, posy=100))
+    world.add_component(player, Renderable(image=pygame.image.load("esper_examples\\redsquare.png"), posx=100, posy=100))
     # Another motionless Entity:
     enemy = world.create_entity()
-    world.add_component(enemy, Renderable(image=pygame.image.load("EsperExamples\\bluesquare.png"), posx=400, posy=250))
+    world.add_component(enemy, Renderable(image=pygame.image.load("esper_examples\\bluesquare.png"), posx=400, posy=250))
 
     # Create some Processor instances, and asign them to be processed.
     render_processor = RenderProcessor(window=window)
