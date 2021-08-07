@@ -3,49 +3,57 @@ from dataclasses import dataclass as component
 
 
 @component
-class Work:
-    factory: str = "Basic"
-    salary: int = 10
-
-@component
-class Citizen:
+class Age:
     age: int = 0
-    money: int = 0
-    salary: int = 0
-    workId: int = None  #factory id
+
 
 @component
-class Factory:
-    city: str = "Moscow"
-    factoryId: int = None
-    productName: str = "Generic"
-    productPrice: int = 0
-    employs: int = 0
-    employSalary: int = 0
-    money: int = 0
-    resources: int = 0
+class Type:
+    type: str = ""  # city, factory, citizen...
+
+
+@component
+class Name:
+    name: str = ""
+
+
+@component
+class ID:
+    id: int
+
+
+@component
+class ParentID:
+    pID: int
+
+
+@component
+class Salary:
+    salary = 10.0
+
+
+@component
+class Money:
+    money = 0.0
+
+
+@component
+class TaxRate:
+    taxRate = 20.0
+
 
 @component
 class Product:
     name: str = ""
-    price:int = 0
+    cost = 0.0  # prime cost
+    price = 0.0  # market price
 
+# not shure
 @component
 class City:
-    citizens: int = 1000
-    budget: int = 1000
-    taxRate: int = 20
+    households = []
     factories = []
 
-
-# city = City()
-# factory = Factory()
-# factory.employSalary = 28
-# factory.factoryId = 1
-# city.factories.append(factory)
-# citizen = Citizen()
-# factory = city.factories[0]
-# citizen.salary = factory.employSalary
-# citizen.workId = factory.factoryId
-
-# print(citizen)
+@component
+class Household:
+    citizens = []
