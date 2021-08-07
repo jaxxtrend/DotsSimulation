@@ -7,9 +7,9 @@ class LifeProcessor(esper.Processor):
         super().__init__()
 
     def process(self):
-        for ent, (citizen) in self.world.get_component(Citizen):
-            if citizen.age < 100:
-                citizen.age += 1
+        for ent, (Age) in self.world.get_component(Age):
+            if Age.age < 100:
+                Age.age += 1
             else:
                 self.world.delete_entity(ent)
 
