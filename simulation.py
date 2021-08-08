@@ -1,30 +1,37 @@
 import time
-import esper
+from esper import World
 from components import *
 from processors import *
-import random
+from random import randint
 
 def main():
-    world = esper.World()
-
-    taxProcessor = TaxProcessor()
-    lifeProcessor = LifeProcessor()
-    workProcessor = WorkProcessor()
-    world.add_processor(lifeProcessor)
-    world.add_processor(workProcessor)
-    world.add_processor(taxProcessor)
+    world = World()
 
     # generate city
-    cityName = "Moscow"
-    world.create_entity(City(citizens=5, budget=100000))
-    
+    cityName = cp.Name()
+    cityName.name = "Moscow"
+    city = world.create_entity()
+    world.add_component(city, cityName)
+    world.add_component(city, cp.City())    
+    world.add_component(city, cp.Money())
+    world.add_component(city, cp.TaxRate())
+
     # generate citizens
     i = 0
     while i < 5:
-        #name = "E_citizen" + str(i)
-        world.create_entity(Citizen(age=random.randint(0, 30),
-                                    money=random.randint(0, 1000)))
+        citizen = world.create_entity()
+        world.add_component(citizen, cp.Citizen())
+        world.add_component(citizen, cp.Age(value=randint(0,30)))
+        world.add_component(citizen, cp.Money())
+        world.add_component(citizen, cp.Salary())
+        world.add_component(citizen, cp.TaxRate())
         i += 1
+
+    #added processors
+    ageProc = AgeProc()
+    workProc = WorkProc()
+    world.add_processor(ageProc)
+    world.add_processor(workProc)
 
     try:
         i = 0
@@ -33,7 +40,7 @@ def main():
             world.process()
             time.sleep(0.1)
             i += 1
-            print(len(world._entities))
+            #print(len(world._entities))
 
     except KeyboardInterrupt:
         return

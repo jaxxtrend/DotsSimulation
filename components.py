@@ -3,22 +3,27 @@ from dataclasses import dataclass as component
 
 @component
 class Age:
-    age: int = 0
+    value: int = 0
 
 
 @component
-class Type:
-    type: str = ""  # city, factory, citizen...
+class City:
+    name = ""
+
+
+@component
+class Citizen:
+    pass
+
+
+@component
+class Factory:
+    pass
 
 
 @component
 class Name:
-    name: str = ""
-
-
-@component
-class ID:
-    id: int
+    string: str = ""
 
 
 @component
@@ -28,17 +33,18 @@ class ParentID:
 
 @component
 class Salary:
-    salary = 10.0
+    value = 10.0
 
 
 @component
 class Money:
-    money = 0.0
+    value = 0.0
 
 
 @component
 class TaxRate:
-    taxRate = 20.0
+    """Value in precents"""
+    value = 20.0
 
 
 @component
