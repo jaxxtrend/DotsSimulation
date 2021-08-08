@@ -1,37 +1,26 @@
 import time
+from random import randint
 from esper import World
 from components import *
 from processors import *
-from random import randint
+from entities import *
+
 
 def main():
     world = World()
-
-    # generate city
-    cityName = cp.Name()
-    cityName.name = "Moscow"
-    city = world.create_entity()
-    world.add_component(city, cityName)
-    world.add_component(city, cp.City())    
-    world.add_component(city, cp.Money())
-    world.add_component(city, cp.TaxRate())
-
+    create_city(world)
+    create_factory(world)
     # generate citizens
     i = 0
     while i < 5:
-        citizen = world.create_entity()
-        world.add_component(citizen, cp.Citizen())
-        world.add_component(citizen, cp.Age(value=randint(0,30)))
-        world.add_component(citizen, cp.Money())
-        world.add_component(citizen, cp.Salary())
-        world.add_component(citizen, cp.TaxRate())
+        create_citizen(world, age=randint(0, 30))
         i += 1
 
-    #added processors
-    ageProc = AgeProc()
-    workProc = WorkProc()
-    world.add_processor(ageProc)
-    world.add_processor(workProc)
+    # added processors
+    p_age = P_Age()
+    p_work = P_Work()
+    world.add_processor(p_age)
+    world.add_processor(p_work)
 
     try:
         i = 0
@@ -40,7 +29,7 @@ def main():
             world.process()
             time.sleep(0.1)
             i += 1
-            #print(len(world._entities))
+            # print(len(world._entities))
 
     except KeyboardInterrupt:
         return

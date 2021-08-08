@@ -3,20 +3,20 @@ import components as cp
 
 
 # Processors
-class AgeProc(Processor):
+class P_Age(Processor):
     def __init__(self):
         super().__init__()
 
     def process(self):
         for ent, (age) in self.world.get_component(cp.Age):
-            if age.value < 100:  # simple dead if age equal 100
-                age.value += 1
+            if age.v < 100:  # simple dead if age equal 100
+                age.v += 1
             else:
                 self.world.delete_entity(ent)
 
 
 # Households lifecicle
-class HouseholdsProc(Processor):
+class P_Households(Processor):
     def __init__(self):
         super().__init__()
 
@@ -28,25 +28,32 @@ class HouseholdsProc(Processor):
             Household.citizens.append()
 
 
-class WorkProc(Processor):
+class P_Work(Processor):
     def __init__(self):
         super().__init__()
 
     def process(self):
-        salaries = 0
-        for ent, (salary, money, taxRate) in self.world.get_components(cp.Salary, cp.Money, cp.TaxRate):
+        incomeSum = 0
+        for ent, (income, money, taxRate) in self.world.get_components(cp.Income, cp.Money, cp.TaxRate):
             if self.world.has_component(ent, component_type=cp.Citizen):
-                money.value += (salary.value - salary.value * (taxRate.value / 100))
-                salaries += (salary.value - salary.value * (taxRate.value / 100))
+                money.v += (income.v - income.v * (taxRate.v / 100))
+                incomeSum += (income.v - income.v * (taxRate.v / 100))
 
-        for ent, (salary, money, taxRate) in self.world.get_components(cp.Salary, cp.Money, cp.TaxRate):
+        for ent, (income, money, taxRate) in self.world.get_components(cp.Income, cp.Money, cp.TaxRate):
             if self.world.has_component(entity=ent, component_type=cp.City):
-                money.value += salaries * (taxRate.value / 100)
+                money.v += incomeSum * (taxRate.v / 100)
             elif self.world.has_component(entity=ent, component_type=cp.Factory):
-                money.value -= salaries
-        
+                money.v -= incomeSum
 
-class TaxProc(Processor):
+class P_FactoryProduction(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+        for ent, (income, money, taxRate) in self.world.get_components(cp.Factory, cp.Money, cp.Employees, cp.TaxRate):
+            pass
+
+class P_Tax(Processor):
     def __init__(self) -> None:
         super().__init__()
 
@@ -54,11 +61,11 @@ class TaxProc(Processor):
         tax = self.world.get_component(City)[0][1].taxRate
         city = self.world.get_component(City)[0][1]
         for ent, (citizen) in self.world.get_component(Citizen):
-            citizen.money = int(citizen.money - citizen.salary * (tax / 100))
-            city.budget += (citizen.salary * (tax / 100))
+            citizen.money = int(citizen.money - citizen.income * (tax / 100))
+            city.budget += (citizen.income * (tax / 100))
 
 
-class MigrationProc(Processor):
+class P_Migration(Processor):
     def __init__(self) -> None:
         super().__init__()
 
