@@ -40,6 +40,14 @@ class Name:
 class Income:
     v: float = 0.0
 
+@component
+class subsidy:
+    v: float = 0.0
+
+@component
+class Salary:
+    v: float = 0.0
+
 
 @component
 class Money:
@@ -53,5 +61,5 @@ class TaxRate:
 
 
 @component
-class Employees:
-    v: int = 0
+class WorkId:
+    v:int = None

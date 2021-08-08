@@ -45,6 +45,30 @@ class P_Work(Processor):
             elif self.world.has_component(entity=ent, component_type=cp.Factory):
                 money.v -= incomeSum
 
+
+class P_FactoryPaycheck(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+        for ent, (Cmoney, income, tax) in self.world.get_components(cp.Citizen, cp.Money, cp.WorkId, cp.Income, cp.TaxRate):
+            self.world.get_component()
+            Fmoney -= income
+            Cmoney += (income - income*(tax/100))
+
+
+class P_GetGob(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+        for ent, (employees) in self.world.get_components(cp.Factory, cp.Employees):
+            for ent, (has_work) in self.world.get_components(cp.Citizen, cp.HasWork):
+                if not has_work:
+                    has_work = True
+                    employees.append(ent)
+
+
 class P_FactoryProduction(Processor):
     def __init__(self) -> None:
         super().__init__()
@@ -52,6 +76,7 @@ class P_FactoryProduction(Processor):
     def process(self):
         for ent, (income, money, taxRate) in self.world.get_components(cp.Factory, cp.Money, cp.Employees, cp.TaxRate):
             pass
+
 
 class P_Tax(Processor):
     def __init__(self) -> None:

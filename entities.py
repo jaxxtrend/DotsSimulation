@@ -18,7 +18,6 @@ def create_factory(world, name="Basic"):
     world.add_component(factory, Name(s=name))
     world.add_component(factory, Money(v=1000))
     world.add_component(factory, TaxRate(v=40))
-    world.add_component(factory, Employees())
     product = Product
     product.name = "Energy"
     product.cost = 0
@@ -32,5 +31,9 @@ def create_citizen(world, age=0, money=0, income=0, taxRate=0):
     world.add_component(citizen, Citizen())
     world.add_component(citizen, Age(v=age))
     world.add_component(citizen, Money(v=money))
-    world.add_component(citizen, Income(v=income))
-    world.add_component(citizen, TaxRate(v=taxRate))
+   
+
+def add_work(world, ent, workId, salary=0, taxRate=0):
+    world.add_component(ent, Salary(v=salary))
+    world.add_component(ent, TaxRate(v=taxRate))
+    world.add_component(ent, WorkId(v=workId))
