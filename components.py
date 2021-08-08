@@ -3,12 +3,7 @@ from dataclasses import dataclass as component
 
 @component
 class Age:
-    value: int = 0
-
-
-@component
-class City:
-    name = ""
+    v:int = 0
 
 
 @component
@@ -22,43 +17,41 @@ class Factory:
 
 
 @component
+class Product:
+    pass
+
+
+@component
+class City:
+    pass
+
+
+@component
+class Household:
+    pass
+
+
+@component
 class Name:
-    string: str = ""
+    s:str = ""
 
 
 @component
-class ParentID:
-    pID: int
-
-
-@component
-class Salary:
-    value = 10.0
+class Income:
+    v:float = 10.0
 
 
 @component
 class Money:
-    value = 0.0
-
+    v:float = 0.0
 
 @component
 class TaxRate:
     """Value in precents"""
-    value = 20.0
+    v:float = 20.0
 
 
 @component
-class Product:
-    name: str = ""
-    cost = 0.0  # prime cost
-    price = 0.0  # market price
+class Employees:
+    v:int = 0
 
-# not shure
-@component
-class City:
-    households = []
-    factories = []
-
-@component
-class Household:
-    citizens = []
