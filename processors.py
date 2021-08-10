@@ -1,8 +1,23 @@
 from esper import Processor, World
 import components as cp
+from random import randint
+from entities import create_citizen
 
 
-# Processors
+class P_CitizenGeneration(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+        for ent, (city, childrens, population) in self.world.get_components(cp.City, cp.Childrens, cp.Population):
+            # generate citizens
+            if len(childrens.v) < population.v:
+                citizens =[]
+                while len(citizens) < population.v:
+                    citizen = create_citizen(self.world, age=randint(18, 30))
+                    citizens.append(citizen)
+                childrens.v += tuple(citizens)
+
 class P_Age(Processor):
     def __init__(self):
         super().__init__()
@@ -11,8 +26,15 @@ class P_Age(Processor):
         for ent, (age) in self.world.get_component(cp.Age):
             if age.v < 100:  # simple dead if age equal 100
                 age.v += 1
+                print(age)
             else:
+                for ent1,(childrens) in self.world.get_components(cp.City,cp.Childrens):
+                    y = list(childrens.v)
+                    y.remove(ent)
+                    childrens.v = y
                 self.world.delete_entity(ent)
+
+                print("citizen is dead")
 
 
 # Households lifecicle
@@ -46,46 +68,14 @@ class P_Work(Processor):
                 money.v -= incomeSum
 
 
-class P_FactoryPaycheck(Processor):
-    def __init__(self) -> None:
-        super().__init__()
-
-    def process(self):
-        for ent, (Cmoney, income, tax) in self.world.get_components(cp.Citizen, cp.Money, cp.WorkId, cp.Income, cp.TaxRate):
-            self.world.get_component()
-            Fmoney -= income
-            Cmoney += (income - income*(tax/100))
-
-
-class P_GetGob(Processor):
-    def __init__(self) -> None:
-        super().__init__()
-
-    def process(self):
-        for ent, (employees) in self.world.get_components(cp.Factory, cp.Employees):
-            for ent, (has_work) in self.world.get_components(cp.Citizen, cp.HasWork):
-                if not has_work:
-                    has_work = True
-                    employees.append(ent)
-
-
-class P_FactoryProduction(Processor):
-    def __init__(self) -> None:
-        super().__init__()
-
-    def process(self):
-        for ent, (income, money, taxRate) in self.world.get_components(cp.Factory, cp.Money, cp.Employees, cp.TaxRate):
-            pass
-
-
 class P_Tax(Processor):
     def __init__(self) -> None:
         super().__init__()
 
     def process(self):
-        tax = self.world.get_component(City)[0][1].taxRate
-        city = self.world.get_component(City)[0][1]
-        for ent, (citizen) in self.world.get_component(Citizen):
+        tax = self.world.get_component(cp.City)[0][1].taxRate
+        city = self.world.get_component(cp.City)[0][1]
+        for ent, (citizen) in self.world.get_component(cp.Citizen):
             citizen.money = int(citizen.money - citizen.income * (tax / 100))
             city.budget += (citizen.income * (tax / 100))
 
@@ -96,3 +86,6 @@ class P_Migration(Processor):
 
     def process(self):
         pass
+
+
+
