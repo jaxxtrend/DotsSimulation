@@ -1,3 +1,6 @@
+https://github.com/benmoran56/esper
+https://github.com/SanderMertens/ecs-faq
+
 Used python 3.8.10
 
 install virtual environment module:
