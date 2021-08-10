@@ -3,26 +3,31 @@ from dataclasses import dataclass as component
 
 @component
 class Citizen:
+    """tag"""
     pass
 
 
 @component
 class Factory:
+    """tag"""
     pass
 
 
 @component
 class Product:
+    """tag"""
     pass
 
 
 @component
 class City:
+    """tag"""
     pass
 
 
 @component
 class Household:
+    """tag"""
     pass
 
 
@@ -41,7 +46,7 @@ class Income:
     v: float = 0.0
 
 @component
-class subsidy:
+class Subsidy:
     v: float = 0.0
 
 @component
@@ -59,7 +64,28 @@ class TaxRate:
     """Value in precents"""
     v: float = 20.0
 
-
 @component
 class WorkId:
     v:int = None
+
+@component
+class Cost:
+    v:float = 0.0
+
+@component
+class Price:
+    v:float = 0.0
+
+@component
+class Childrens:
+    v:tuple = ()
+
+@component
+class Parents:
+    v:tuple = ()
+
+if __name__ == "__main__":
+    # simple tests
+    childrens = Childrens()
+    childrens.v += ("sd","asds","sadsd")
+    print(childrens)
