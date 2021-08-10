@@ -45,9 +45,11 @@ class Name:
 class Income:
     v: float = 0.0
 
+
 @component
 class Subsidy:
     v: float = 0.0
+
 
 @component
 class Salary:
@@ -64,28 +66,39 @@ class TaxRate:
     """Value in precents"""
     v: float = 20.0
 
+
 @component
 class WorkId:
-    v:int = None
+    v: int = None
+
 
 @component
 class Cost:
-    v:float = 0.0
+    v: float = 0.0
+
 
 @component
 class Price:
-    v:float = 0.0
+    v: float = 0.0
+
 
 @component
 class Childrens:
-    v:tuple = ()
+    v: tuple = ()
+
 
 @component
 class Parents:
-    v:tuple = ()
+    v: tuple = ()
+
+
+@component
+class Population:
+    v: int = 5
+
 
 if __name__ == "__main__":
     # simple tests
     childrens = Childrens()
-    childrens.v += ("sd","asds","sadsd")
+    childrens.v += ("sd", "asds", "sadsd")
     print(childrens)
