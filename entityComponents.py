@@ -2,36 +2,6 @@ from dataclasses import dataclass as component
 
 
 @component
-class Citizen:
-    """tag"""
-    pass
-
-
-@component
-class Factory:
-    """tag"""
-    pass
-
-
-@component
-class Product:
-    """tag"""
-    pass
-
-
-@component
-class City:
-    """tag"""
-    pass
-
-
-@component
-class Household:
-    """tag"""
-    pass
-
-
-@component
 class Age:
     v: int = 0
 
@@ -95,10 +65,3 @@ class Parents:
 @component
 class Population:
     v: int = 5
-
-
-if __name__ == "__main__":
-    # simple tests
-    childrens = Childrens()
-    childrens.v += ("sd", "asds", "sadsd")
-    print(childrens)
