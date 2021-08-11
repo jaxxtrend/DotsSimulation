@@ -22,7 +22,7 @@ class P_CitizenGeneration(Processor):
                 citizens = []
 
 class P_Age(Processor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def process(self):
@@ -42,7 +42,7 @@ class P_Age(Processor):
 
 # Households lifecicle
 class P_Households(Processor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def process(self):
@@ -54,7 +54,7 @@ class P_Households(Processor):
 
 
 class P_Work(Processor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def process(self):
