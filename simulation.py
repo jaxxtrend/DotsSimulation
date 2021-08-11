@@ -1,7 +1,8 @@
 import time
 from random import randint
 from esper import World
-from components import *
+from entityComponents import *
+from entityTags import *
 from processors import *
 from entities import *
 
