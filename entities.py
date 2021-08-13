@@ -1,5 +1,6 @@
 #from esper import World, Processor
 from entityComponents import *
+from entityTags import *
 
 
 def create_city(world, name="Moscow", money=1000.0, taxRate=20.0):
