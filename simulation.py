@@ -1,14 +1,15 @@
 import time
 from random import randint
 from esper import World
+from constants import SIM_SPEED, WEEK
 from entityComponents import *
 from entityTags import *
 from processors import *
 from entities import *
+from simulation import *
 
 
-def main():
-
+def main():    
 
     world = World()
 
@@ -19,14 +20,21 @@ def main():
     world.add_processor(P_CitizenGeneration())
     world.add_processor(P_Age())
 
-# one step is one day
     try:
         i = 0
+        t = 0
         while True:
+            tick = DAY
             # Call world.process() to run all Processors.
             world.process()
-            time.sleep(0.1)
             i += 1
+            if i % tick == 0:
+                et = time.process_time() - t
+                t = time.process_time()
+                if et < 1:
+                    time.sleep(1-et)
+                print(et)
+                print("{}".format(str(timedelta(seconds=(60*i)))))
 
     except KeyboardInterrupt:
         return
