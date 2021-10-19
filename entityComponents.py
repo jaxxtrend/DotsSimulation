@@ -3,8 +3,13 @@ from dataclasses import dataclass as component
 
 @component
 class Age:
-    v: int = 0
+    v: float = 0 #minutes
+    def years(v):
+        return v / 525600
 
+@component
+class Health:
+    v: float = 100
 
 @component
 class Name:
@@ -33,7 +38,7 @@ class Money:
 
 @component
 class TaxRate:
-    """Value in precents"""
+    """Value in percents"""
     v: float = 20.0
 
 
