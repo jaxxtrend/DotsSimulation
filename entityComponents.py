@@ -1,19 +1,45 @@
 from dataclasses import dataclass as component
+from constants import *
 
+##################################
+#  Define components:
+##################################
 
 @component
 class Age:
-    v: float = 0 #minutes
-    def years(v):
-        return v / 525600
+    v: float = 0  # minutes
+
+    def age(v):
+        return v // YEAR
+
 
 @component
 class Health:
     v: float = 100
 
+
+@component
+class Energy:
+    v: float = 100
+
+
 @component
 class Name:
-    s: str = None
+    v: str = ""
+
+
+@component
+class Family:
+    v: str = ""
+
+@component
+class Salary:
+    v: float = 0.0
+
+
+@component
+class Money:
+    v: float = 0.0
 
 
 @component
@@ -23,16 +49,6 @@ class Income:
 
 @component
 class Subsidy:
-    v: float = 0.0
-
-
-@component
-class Salary:
-    v: float = 0.0
-
-
-@component
-class Money:
     v: float = 0.0
 
 
