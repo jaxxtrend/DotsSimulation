@@ -1,12 +1,11 @@
 import time
 from random import randint
 from esper import World
-from constants import SIM_SPEED, WEEK
 from entityComponents import *
 from entityTags import *
 from processors import *
 from entities import *
-from simulation import *
+from constants import *
 
 
 def main():    
@@ -24,7 +23,7 @@ def main():
         i = 0
         t = 0
         while True:
-            tick = DAY
+            tick = MONTH
             # Call world.process() to run all Processors.
             world.process()
             i += 1
