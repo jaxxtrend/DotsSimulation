@@ -1,8 +1,10 @@
 from esper import Processor, World
+from constants import DAY, HOUR, MINUTE, MONTH, YEAR
 from entityComponents import *
 from entityTags import *
 from entities import create_citizen
 from random import randint
+from datetime import timedelta
 
 
 class P_CitizenGeneration(Processor):
@@ -12,11 +14,11 @@ class P_CitizenGeneration(Processor):
     def process(self):
         for ent, (city, childrens, population) in self.world.get_components(City, Childrens, Population):
             # generate citizens
-            if len(childrens.v) < population.v:
+            if len(childrens.v) < 1000000:
                 citizens = []
                 citizens += list(childrens.v)
-                while len(citizens) < population.v:
-                    citizen = create_citizen(self.world, age=randint(18, 30))
+                while len(citizens) < 1:
+                    citizen = create_citizen(self.world, age=0)
                     citizens.append(citizen)
                 childrens.v = tuple(citizens)
                 citizens = []
@@ -27,17 +29,17 @@ class P_Age(Processor):
 
     def process(self):
         for ent, (age) in self.world.get_component(Age):
-            if age.v < 100:  # simple dead if age equal 100
+            if age.v < (YEAR * 100):  # simple dead if age equal 100
                 age.v += 1
-                print(age)
             else:
                 for ent1,(city, childrens) in self.world.get_components(City,Childrens):
                     y = list(childrens.v)
                     y.remove(ent)
                     childrens.v = tuple(y)
                 self.world.delete_entity(ent)
+            #if age.v % MINUTE == 0:
+                #print("{}".format(str(timedelta(seconds=(60*age.v)))))
 
-                print("citizen is dead")
 
 
 # Households lifecicle
