@@ -1,10 +1,11 @@
 from esper import Processor, World
-from constants import DAY, HOUR, MINUTE, MONTH, YEAR
 from entityComponents import *
 from entityTags import *
 from entities import create_citizen
 from random import randint
 from datetime import timedelta
+from generators import *
+from constants import *
 
 
 class P_CitizenGeneration(Processor):
@@ -18,7 +19,10 @@ class P_CitizenGeneration(Processor):
                 citizens = []
                 citizens += list(childrens.v)
                 while len(citizens) < 1:
-                    citizen = create_citizen(self.world, age=0)
+                    citizen = create_citizen(self.world,
+                                                name=makeName(),
+                                                family=makeFamily(),
+                                                age=0 )
                     citizens.append(citizen)
                 childrens.v = tuple(citizens)
                 citizens = []
