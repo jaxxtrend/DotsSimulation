@@ -3,19 +3,21 @@ from entityComponents import *
 from entityTags import *
 
 
-def create_citizen(world, age=0, money=0, health=100):
+def create_citizen(world, name="",family="", age=0, money=0, health=100):
     citizen = world.create_entity()
     world.add_component(citizen, Citizen())
-    world.add_component(citizen, Age(v=age))
-    world.add_component(citizen, Health(v=health))
-    world.add_component(citizen, Money(v=money))
+    world.add_component(citizen, Age(age))
+    world.add_component(citizen, Health(health))
+    world.add_component(citizen, Money(money))
+    world.add_component(citizen, Name(name))
+    world.add_component(citizen, Family(family))
     #print("Citizen created")
     return citizen
 
 def create_city(world, name="Moscow", money=1000.0, taxRate=20.0):
     city = world.create_entity()
     world.add_component(city, City())
-    world.add_component(city, Name(s=name))
+    world.add_component(city, Name(name))
     world.add_component(city, Money(v=money))
     world.add_component(city, TaxRate(v=taxRate))
     world.add_component(city, Population())
