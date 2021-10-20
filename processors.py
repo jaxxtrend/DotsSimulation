@@ -33,16 +33,22 @@ class P_Age(Processor):
 
     def process(self):
         for ent, (age) in self.world.get_component(Age):
-            if age.v < (YEAR * 100):  # simple dead if age equal 100
+            if age.v < (YEAR * 100):  # simple dead if age equal 100 years
                 age.v += 1
             else:
+                #citizen dead
                 for ent1,(city, childrens) in self.world.get_components(City,Childrens):
                     y = list(childrens.v)
                     y.remove(ent)
                     childrens.v = tuple(y)
                 self.world.delete_entity(ent)
-            #if age.v % MINUTE == 0:
-                #print("{}".format(str(timedelta(seconds=(60*age.v)))))
+
+class P_Health(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+        pass
 
 
 
