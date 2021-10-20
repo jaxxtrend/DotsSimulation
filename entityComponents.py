@@ -7,11 +7,7 @@ from constants import *
 
 @component
 class Age:
-    v: float = 0  # minutes
-
-    def age(v):
-        return v // YEAR
-
+    v: int = 0  # minutes
 
 @component
 class Health:
