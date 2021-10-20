@@ -17,6 +17,10 @@ class Age:
 class Health:
     v: float = 100
 
+@component
+class Sleep:
+    v: bool = False
+
 
 @component
 class Energy:
