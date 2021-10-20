@@ -2,7 +2,7 @@ from esper import Processor, World
 from entityComponents import *
 from entityTags import *
 from entities import create_citizen
-from random import randint
+from random import randint, random
 from datetime import timedelta
 from generators import *
 from constants import *
@@ -31,17 +31,25 @@ class P_Age(Processor):
     def __init__(self) -> None:
         super().__init__()
 
+
     def process(self):
+
         for ent, (age) in self.world.get_component(Age):
-            if age.v < (YEAR * 100):  # simple dead if age equal 100 years
-                age.v += 1
+            # age will not equal zero and year elapsed
+            if age.v != 0 and age.v % YEAR == 0:
+                #chance to die slow increased from 0 to .5 up to 100 years? after every year == .5
+                if random() < (age.v // YEAR) / 200:
+                    #citizen remove from the city
+                    for ent1,(city, childrens) in self.world.get_components(City,Childrens):
+                        y = list(childrens.v)
+                        y.remove(ent)
+                        childrens.v = tuple(y)
+                    self.world.delete_entity(ent)
+                else:
+                    age.v += 1
             else:
-                #citizen dead
-                for ent1,(city, childrens) in self.world.get_components(City,Childrens):
-                    y = list(childrens.v)
-                    y.remove(ent)
-                    childrens.v = tuple(y)
-                self.world.delete_entity(ent)
+                age.v += 1
+
 
 class P_Health(Processor):
     def __init__(self) -> None:
