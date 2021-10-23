@@ -10,6 +10,14 @@ class Age:
     v: int = 0  # minutes
 
 @component
+class DeathTime:
+    v: int = None  # minutes
+
+@component
+class DeathChance:
+    v: float = 0.0
+
+@component
 class Health:
     v: float = 100
 

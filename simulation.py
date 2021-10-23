@@ -16,8 +16,9 @@ def main():
     # factory = create_factory(world)
     
     # added processors
-    world.add_processor(P_CitizenGeneration())
-    world.add_processor(P_Age())
+    world.add_processor(CityzenSpawnProcessor())
+    world.add_processor(AgeProcessor())
+    world.add_processor(DeathProcessor())
 
     try:
         i = 0

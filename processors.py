@@ -8,7 +8,7 @@ from generators import *
 from constants import *
 
 
-class P_CitizenGeneration(Processor):
+class CityzenSpawnProcessor(Processor):
     def __init__(self) -> None:
         super().__init__()
 
@@ -20,35 +20,46 @@ class P_CitizenGeneration(Processor):
                 citizens += list(childrens.v)
                 while len(citizens) < 1:
                     citizen = create_citizen(self.world,
-                                                name=makeName(),
-                                                family=makeFamily(),
-                                                age=0 )
+                                             name=makeName(),
+                                             family=makeFamily(),
+                                             age=0)
                     citizens.append(citizen)
                 childrens.v = tuple(citizens)
                 citizens = []
 
-class P_Age(Processor):
+
+class AgeProcessor(Processor):
     def __init__(self) -> None:
         super().__init__()
-
 
     def process(self):
 
         for ent, (age) in self.world.get_component(Age):
-            # age will not equal zero and year elapsed
+            age.v += 1
+
+
+class DeathProcessor(Processor):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def process(self):
+
+        for ent, (age, deathTime, deathChance) in self.world.get_components(Age, DeathTime, DeathChance):
+
             if age.v != 0 and age.v % YEAR == 0:
-                #chance to die slow increased from 0 to .5 up to 100 years? after every year == .5
-                if random() < (age.v // YEAR) / 200:
-                    #citizen remove from the city
-                    for ent1,(city, childrens) in self.world.get_components(City,Childrens):
-                        y = list(childrens.v)
-                        y.remove(ent)
-                        childrens.v = tuple(y)
-                    self.world.delete_entity(ent)
-                else:
-                    age.v += 1
-            else:
-                age.v += 1
+                deathChance = (age.v // YEAR) / 200
+                # chance to die slow increased from 0 to .5 up to 100 years? after 100 years, every year == .5
+                if random() < deathChance:
+                    # mark death minute
+                    deathTime = randint(1, YEAR)
+
+            if age.v % YEAR == deathTime.v:
+                # citizen remove from the city
+                for ent1, (city, childrens) in self.world.get_components(City, Childrens):
+                    y = list(childrens.v)
+                    y.remove(ent)
+                    childrens.v = tuple(y)
+                self.world.delete_entity(ent)
 
 
 class P_Health(Processor):
@@ -57,7 +68,6 @@ class P_Health(Processor):
 
     def process(self):
         pass
-
 
 
 # Households lifecicle
@@ -109,6 +119,3 @@ class P_Migration(Processor):
 
     def process(self):
         pass
-
-
-

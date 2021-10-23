@@ -11,6 +11,8 @@ def create_citizen(world, name="",family="", age=0, money=0, health=100):
     world.add_component(citizen, Money(money))
     world.add_component(citizen, Name(name))
     world.add_component(citizen, Family(family))
+    world.add_component(citizen, DeathTime())    
+    world.add_component(citizen, DeathChance())
     #print("Citizen created")
     return citizen
 
