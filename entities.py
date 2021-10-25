@@ -20,8 +20,8 @@ def create_city(world, name="Moscow", money=1000.0, taxRate=20.0):
     city = world.create_entity()
     world.add_component(city, City())
     world.add_component(city, Name(name))
-    world.add_component(city, Money(v=money))
-    world.add_component(city, TaxRate(v=taxRate))
+    world.add_component(city, Money(money))
+    world.add_component(city, TaxRate(taxRate))
     world.add_component(city, Population())
     world.add_component(city, Childrens())
     #print("City " + name + " created")
@@ -32,9 +32,9 @@ def create_factory(world, name="Basic"):
     """create factory"""
     factory = world.create_entity()
     world.add_component(factory, Factory())
-    world.add_component(factory, Name(s=name))
-    world.add_component(factory, Money(v=1000))
-    world.add_component(factory, TaxRate(v=40))
+    world.add_component(factory, Name(name))
+    world.add_component(factory, Money(1000))
+    world.add_component(factory, TaxRate(40))
     #print("Factory created")
     return factory
 
@@ -42,7 +42,7 @@ def create_factory(world, name="Basic"):
 def create_product(world, name=""):
     product = world.create_entity()
     world.add_component(product, Product())
-    world.add_component(product, Name(s=name))
+    world.add_component(product, Name(name))
     world.add_component(product, Cost())
     world.add_component(product, Price())
     #print("Product " + name + " created")
