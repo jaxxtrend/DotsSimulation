@@ -31,11 +31,11 @@ def main():
             i += 1
             if i % tick == 0:
                 world.collectHistory(i//tick)
-                et = time.process_time() - t
+                elapsedTime = time.process_time() - t
                 t = time.process_time()
-                if et < 1:
-                    time.sleep(1-et)
-                print(et)
+                if elapsedTime < 1:
+                    time.sleep(1-elapsedTime)
+                print(elapsedTime)
                 print("{}".format(str(timedelta(seconds=(60*i)))))
 
     except KeyboardInterrupt:
