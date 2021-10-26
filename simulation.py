@@ -1,20 +1,21 @@
 import time
+from datetime import timedelta
 from random import randint
-from esper import World
+
+from constants import *
+from entities import *
 from entityComponents import *
 from entityTags import *
 from processors import *
-from entities import *
-from constants import *
 
 
-def main():    
+def main():
 
     world = World()
 
     city = create_city(world)
     # factory = create_factory(world)
-    
+
     # added processors
     world.add_processor(CityzenSpawnProcessor())
     world.add_processor(AgeProcessor())
@@ -24,16 +25,17 @@ def main():
         i = 0
         t = 0
         while True:
-            tick = MONTH
+            tick = DAY
             # Call world.process() to run all Processors.
             world.process()
             i += 1
             if i % tick == 0:
-                et = time.process_time() - t
+                world.collectHistory(i//tick)
+                elapsedTime = time.process_time() - t
                 t = time.process_time()
-                if et < 1:
-                    time.sleep(1-et)
-                print(et)
+                if elapsedTime < 1:
+                    time.sleep(1-elapsedTime)
+                print(elapsedTime)
                 print("{}".format(str(timedelta(seconds=(60*i)))))
 
     except KeyboardInterrupt:
