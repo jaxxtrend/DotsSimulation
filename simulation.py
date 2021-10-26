@@ -1,21 +1,21 @@
 import time
+from datetime import timedelta
 from random import randint
-from esper import World
+
+from constants import *
+from entities import *
 from entityComponents import *
 from entityTags import *
-from history import collectHistory
 from processors import *
-from entities import *
-from constants import *
 
 
-def main():    
+def main():
 
     world = World()
 
     city = create_city(world)
     # factory = create_factory(world)
-    
+
     # added processors
     world.add_processor(CityzenSpawnProcessor())
     world.add_processor(AgeProcessor())
@@ -30,7 +30,7 @@ def main():
             world.process()
             i += 1
             if i % tick == 0:
-                collectHistory( i//tick, world)
+                world.collectHistory(i//tick)
                 et = time.process_time() - t
                 t = time.process_time()
                 if et < 1:

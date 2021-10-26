@@ -1,12 +1,19 @@
-from esper import Processor, World
+from random import randint, random
+
+import esper
+from esper import Processor
+
+from constants import *
+from entities import create_citizen
 from entityComponents import *
 from entityTags import *
-from entities import create_citizen
-from random import randint, random
-from datetime import timedelta
 from generators import *
-from constants import *
 
+
+class World (esper.World):
+
+    def collectHistory(self, tick):
+        print(tick, "history collected")
 
 class CityzenSpawnProcessor(Processor):
     def __init__(self) -> None:
